@@ -27,4 +27,3 @@ class BattleSnake < Sinatra::Base
     end
 end
 
-run BattleSnake.run!
