@@ -20,12 +20,22 @@ class BattleSnake < Sinatra::Base
 
     post '/move' do
 
-        @data = JSON.parse request.body.read
+        data = JSON.parse request.body.read
+        board = data["board"]
+        me = data["you"]
+
+        player_snake = Snake.new me["id"],
+                                 me["name"],
+                                 me["health"],
+                                 me["body"]
         decider = Decider.new(
-            Board.new @data["board"]["height"], @data["board"]["width"]
+            Board.new(board["height"], 
+                      board["width"], 
+                      board["food"],
+                      board["snakes"]),
+            player_snake
         )
         
-
         json :move => decider.decide,
              :shout => "Test snake please ignore" 
     end
@@ -33,7 +43,8 @@ class BattleSnake < Sinatra::Base
     post '/end' do
     end
 
-    Board = Struct.new(:height, :width) do
+    Board = Struct.new(:height, :width, :food, :snakes) do
     end
+    Snake = Struct.new(:id, :name, :health, :body)
 end
 
