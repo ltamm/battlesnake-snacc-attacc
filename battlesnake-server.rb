@@ -1,9 +1,9 @@
 require 'sinatra/base'
 require 'sinatra/json'
 
-class BattleSnake < Sinatra::Base
+require_relative 'decider.rb'
 
-    attr_accessor :data
+class BattleSnake < Sinatra::Base
 
     get '/' do
         "SNACCATTACC"
@@ -21,14 +21,19 @@ class BattleSnake < Sinatra::Base
     post '/move' do
 
         @data = JSON.parse request.body.read
+        decider = Decider.new(
+            Board.new @data["board"]["height"], @data["board"]["width"]
+        )
+        
 
-
-
-        json :move => "up",
+        json :move => decider.decide,
              :shout => "Test snake please ignore" 
     end
 
     post '/end' do
+    end
+
+    Board = Struct.new(:height, :width) do
     end
 end
 
