@@ -3,7 +3,7 @@ require 'sinatra/json'
 
 class BattleSnake < Sinatra::Base
 
-    attr_accessor :game
+    attr_accessor :data
 
     get '/' do
         "SNACCATTACC"
@@ -13,12 +13,17 @@ class BattleSnake < Sinatra::Base
     end
 
     post '/start' do
-        json :color => 'white', 
+        json :color => '#ffc0cb', 
              :headType => 'beluga', 
              :tailType => 'round-bum'
     end
 
     post '/move' do
+
+        @data = JSON.parse request.body.read
+
+
+
         json :move => "up",
              :shout => "Test snake please ignore" 
     end
