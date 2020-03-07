@@ -48,5 +48,5 @@ class Decider
     'up'
   end
 
-  Coordinate = new Struct(:x, :y)
+  Coordinate = Struct.new(:x, :y)
 end
