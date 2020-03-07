@@ -52,6 +52,11 @@ class Decider
     blockers.each do |b|
       score += location.distance_from(b)
     end
+    # rough addition of distance to edges
+    score += (board.height - location.y)
+    score += (0 - location.y).abs
+    score += (board.width - location.x)
+    score += (0 - location.x).abs
     score
   end
 
