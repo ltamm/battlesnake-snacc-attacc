@@ -8,6 +8,9 @@ class Decider
   def initialize(board, player_id)
     @board = board
     @player_id = player_id.to_sym
+
+    puts "Board: #{board.inspect}"
+    puts "Player: #{player_id.inspect}"
   end
 
   def clear_path?(direction)
