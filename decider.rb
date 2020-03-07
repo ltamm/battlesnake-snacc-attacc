@@ -64,8 +64,12 @@ class Decider
     !(out_of_bounds?(destination) || blocked?(destination))
   end
 
+  def player_snake
+    board.snakes[player_id]
+  end
+
   def current_coordinate
-    head = board.snakes[player_id].body[0]
+    head = player_snake.body[0]
     body_segment_to_coordinate head
   end
 
