@@ -3,7 +3,7 @@
 require 'sinatra/base'
 require 'sinatra/json'
 
-require_relative 'decider.rb'
+require_relative 'lib/decider.rb'
 
 # Main class for handling Battlesnake API
 class BattleSnake < Sinatra::Base
@@ -37,9 +37,9 @@ class BattleSnake < Sinatra::Base
                 snakes),
       my_id
     )
-    
+
     json move: decider.decide,
-         shout: 'Test snake please ignore'
+         shout: 'Leeeeeeeeeeeeeroy'
   end
 
   post '/end' do
