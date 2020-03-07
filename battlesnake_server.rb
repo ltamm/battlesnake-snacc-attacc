@@ -35,7 +35,8 @@ class BattleSnake < Sinatra::Base
                 board['width'],
                 board['food'],
                 snakes),
-      my_id
+      my_id,
+      %i[up down left right].shuffle
     )
 
     json move: decider.decide,

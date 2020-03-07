@@ -2,12 +2,12 @@
 
 # The engine for deciding where snake goes next
 class Decider
-  DIRECTIONS = %i[up down left right].freeze
-  attr_reader :board, :player_id, :blockers
+  attr_reader :board, :player_id, :blockers, :direction_priority
 
-  def initialize(board, player_id)
+  def initialize(board, player_id, direction_priority = %i[up down left right])
     @board = board
     @player_id = player_id
+    @direction_priority = direction_priority
     @blockers = []
     board.snakes.each do |_id, snake|
       snake.body.each do |segment|
@@ -47,11 +47,10 @@ class Decider
 
   def blocked?(coordinate)
     blockers.include? coordinate
-    
   end
 
   def decide
-    DIRECTIONS.each do |direction|
+    direction_priority.each do |direction|
       return direction.to_s if clear_path? direction
     end
 
