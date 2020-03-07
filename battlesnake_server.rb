@@ -22,7 +22,6 @@ class BattleSnake < Sinatra::Base
 
   post '/move' do
     data = JSON.parse request.body.read
-    puts data
     board = data['board']
     my_id = data['you']['id']
 

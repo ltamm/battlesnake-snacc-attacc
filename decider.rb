@@ -3,14 +3,17 @@
 # The engine for deciding where snake goes next
 class Decider
   DIRECTIONS = %i[up down left right].freeze
-  attr_reader :board, :player_id
+  attr_reader :board, :player_id, :blockers
 
   def initialize(board, player_id)
     @board = board
     @player_id = player_id
-
-    puts "Board: #{board.inspect}"
-    puts "Player: #{player_id.inspect}"
+    @blockers = []
+    board.snakes.each do |_id, snake|
+      snake.body.each do |segment|
+        blockers.push body_segment_to_coordinate segment
+      end
+    end
   end
 
   def clear_path?(direction)
@@ -28,7 +31,7 @@ class Decider
     when :down
       next_coordinate = Coordinate.new head_coordinate['x'], head_coordinate['y'] + 1
     end
-    !(out_of_bounds? next_coordinate)
+    !(out_of_bounds?(next_coordinate) || blocked?(next_coordinate))
   end
 
   def body_segment_to_coordinate(segment)
@@ -40,6 +43,11 @@ class Decider
       coordinate.x == board.width   ||
       coordinate.y.negative?        ||
       coordinate.y == board.height
+  end
+
+  def blocked?(coordinate)
+    blockers.include? coordinate
+    
   end
 
   def decide

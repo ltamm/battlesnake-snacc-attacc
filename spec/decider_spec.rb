@@ -37,5 +37,27 @@ describe Decider do
         expect(@decider.decide).to eq('right')
       end
     end
+    context 'if "up" coordinate is blocked and down is not' do
+      it 'will move down' do
+        test_snake = BattleSnake::Snake.new 'name',
+                                            100,
+                                            [{ 'x' => 0, 'y' => 1 },
+                                             { 'x' => 0, 'y' => 0 }]
+        board = BattleSnake::Board.new 3, 1, [], { 'test_id' => test_snake }
+        @decider = Decider.new(board, 'test_id')
+        expect(@decider.decide).to eq('down')
+      end
+    end
+    context 'if "up" and "down" and "left" coordinates are blocked' do
+      it 'will move right' do
+        test_snake = BattleSnake::Snake.new 'name',
+                                            100,
+                                            [{ 'x' => 0, 'y' => 0 },
+                                             { 'x' => 0, 'y' => 1 }]
+        board = BattleSnake::Board.new 3, 2, [], { 'test_id' => test_snake }
+        @decider = Decider.new(board, 'test_id')
+        expect(@decider.decide).to eq('right')
+      end
+    end
   end
 end
