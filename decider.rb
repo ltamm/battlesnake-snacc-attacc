@@ -2,18 +2,22 @@
 
 # The engine for deciding where snake goes next
 class Decider
-  attr_reader :board, :player_id, :blockers, :direction_priority
+  attr_reader :board, :player_id, :blockers
 
   def initialize(board, player_id, direction_priority = nil)
     @board = board
     @player_id = player_id
     @blockers = []
-    @direction_priority = set_direction_priority if direction_priority.nil?
+    @direction_priority = direction_priority
     board.snakes.each do |_id, snake|
       snake.body.each do |segment|
         blockers.push body_segment_to_coordinate segment
       end
     end
+  end
+
+  def direction_priority
+    @direction_priority || set_direction_priority
   end
 
   def set_direction_priority
