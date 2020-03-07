@@ -61,8 +61,6 @@ class Decider
   end
 
   def clear_path?(direction)
-    # blockages checked:
-    #   - out of bound array indices of board
     head_coordinate = current_coordinate
     destination = next_coordinate(direction, head_coordinate)
     !(out_of_bounds?(destination) || blocked?(destination))
