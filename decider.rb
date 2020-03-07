@@ -1,8 +1,9 @@
 class Decider
-    attr_accessor :board
+    attr_accessor :board, :snake
 
-    def initialize(board, player_snake)
+    def initialize(board, snake)
         @board = board
+        @snake = snake
     end
 
     def decide
