@@ -24,7 +24,7 @@ class Decider
       scores[d] = calculate_score(next_location)
     end
     order = []
-    scores.sort_by { |_, v| -v }.each do |pair|
+    scores.sort_by { |_, v| v }.each do |pair|
       order.append(pair[0]) unless pair[0] == :current
     end
     order
