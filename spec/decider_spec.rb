@@ -18,7 +18,7 @@ describe Decider do
         test_snake = BattleSnake::Snake.new 'name', 100, [ { 'x' => 0, 'y' => 1 } ]
         board = BattleSnake::Board.new 3, 1, [], { 'test_id' => test_snake } 
         @decider = Decider.new(board, 'test_id', %i[up down left right])
-        expect(@decider.decide).to eq('up')
+        expect(@decider.decide!).to eq('up')
       end
     end
     context 'if down is clear (and up is not)' do
@@ -26,7 +26,7 @@ describe Decider do
         test_snake = BattleSnake::Snake.new 'name', 100, [ { 'x' => 0, 'y' => 0 } ]
         board = BattleSnake::Board.new 3, 1, [], { 'test_id' => test_snake }
         @decider = Decider.new(board, 'test_id', %i[up down left right])
-        expect(@decider.decide).to eq('down')
+        expect(@decider.decide!).to eq('down')
       end
     end
     context 'if left is clear (and up and down are not)' do
@@ -34,7 +34,7 @@ describe Decider do
         test_snake = BattleSnake::Snake.new 'name', 100, [ { 'x' => 1, 'y' => 0 } ]
         board = BattleSnake::Board.new 1, 3, [], { 'test_id' => test_snake }
         @decider = Decider.new(board, 'test_id', %i[up down left right])
-        expect(@decider.decide).to eq('left')
+        expect(@decider.decide!).to eq('left')
       end
     end
     context 'if right is clear (and nothing else is)' do
@@ -42,7 +42,7 @@ describe Decider do
         test_snake = BattleSnake::Snake.new 'name', 100, [ { 'x' => 0, 'y' => 0 } ]
         board = BattleSnake::Board.new 1, 3, [], { 'test_id' => test_snake }
         @decider = Decider.new(board, 'test_id', %i[up down left right])
-        expect(@decider.decide).to eq('right')
+        expect(@decider.decide!).to eq('right')
       end
     end
     context 'if "up" coordinate is blocked and down is not' do
@@ -53,7 +53,7 @@ describe Decider do
                                              { 'x' => 0, 'y' => 0 }]
         board = BattleSnake::Board.new 3, 1, [], { 'test_id' => test_snake }
         @decider = Decider.new(board, 'test_id', %i[up down left right])
-        expect(@decider.decide).to eq('down')
+        expect(@decider.decide!).to eq('down')
       end
     end
     context 'if "up" and "down" and "left" coordinates are blocked' do
@@ -64,7 +64,7 @@ describe Decider do
                                              { 'x' => 0, 'y' => 1 }]
         board = BattleSnake::Board.new 3, 2, [], { 'test_id' => test_snake }
         @decider = Decider.new(board, 'test_id', %i[up down left right])
-        expect(@decider.decide).to eq('right')
+        expect(@decider.decide!).to eq('right')
       end
     end
   end

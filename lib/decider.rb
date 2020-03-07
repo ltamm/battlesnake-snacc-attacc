@@ -105,7 +105,7 @@ class Decider
     blockers.include? coordinate
   end
 
-  def decide
+  def decide!
     direction_priority.each do |direction|
       return direction.to_s if clear_path? direction
     end

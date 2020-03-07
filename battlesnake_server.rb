@@ -38,7 +38,7 @@ class BattleSnake < Sinatra::Base
       my_id
     )
 
-    json move: decider.decide,
+    json move: decider.decide!,
          shout: 'Leeeeeeeeeeeeeroy'
   end
 
