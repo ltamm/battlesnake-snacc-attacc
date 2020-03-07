@@ -28,15 +28,14 @@ class Decider
       scores[d] = calculate_score(next_location)
     end
     order = []
-    scores.sort_by { |_, v| v }.each do |pair|
+    scores.sort_by { |_, v| -v }.each do |pair|
       order.append(pair[0]) unless pair[0] == :current
     end
     order
   end
 
   def calculate_score(location)
-    # score comprises the amount of food - amount of blockers
-    food_score(location) - blocker_score(location)
+    blocker_score(location) - food_score(location)
   end
 
   def food_score(location)
@@ -102,9 +101,6 @@ class Decider
   end
 
   def decide
-
-    puts direction_priority
-
     direction_priority.each do |direction|
       return direction.to_s if clear_path? direction
     end
