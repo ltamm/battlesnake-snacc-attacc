@@ -11,7 +11,7 @@ class Decider
     @direction_priority = direction_priority
     board.snakes.each do |_id, snake|
       snake.body.each do |segment|
-        blockers.push body_segment_to_coordinate segment
+        blockers.push hash_to_coordinate segment
       end
     end
   end
@@ -41,7 +41,7 @@ class Decider
   def food_score(location)
     score = 0
     board.food.each do |f|
-      food_location = body_segment_to_coordinate f
+      food_location = hash_to_coordinate f
       score += location.distance_from(food_location)
     end
     score
@@ -72,7 +72,7 @@ class Decider
 
   def current_coordinate
     head = player_snake.body[0]
-    body_segment_to_coordinate head
+    hash_to_coordinate head
   end
 
   def next_coordinate(direction, current)
@@ -88,7 +88,7 @@ class Decider
     end
   end
 
-  def body_segment_to_coordinate(segment)
+  def hash_to_coordinate(segment)
     Coordinate.new segment['x'], segment['y']
   end
 
