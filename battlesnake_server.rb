@@ -15,7 +15,9 @@ class BattleSnake < Sinatra::Base
   end
 
   post '/start' do
-    json color: '#ffc0cb',
+    palette = ['#e4d1d1', '#b9b0b0', '#d9ecd0', '#77a8a8']
+
+    json color: palette[rand(3)],
          headType: 'beluga',
          tailType: 'round-bum'
   end
