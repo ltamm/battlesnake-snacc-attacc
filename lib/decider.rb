@@ -22,14 +22,14 @@ class Decider
 
   def set_direction_priority
     current = current_coordinate
-    scores = { current: calculate_score(current) }
+    scores = {}
     %i[up down left right].each do |d|
       next_location = next_coordinate(d, current)
       scores[d] = calculate_score(next_location)
     end
     order = []
     scores.sort_by { |_, v| -v }.each do |pair|
-      order.append(pair[0]) unless pair[0] == :current
+      order.append(pair[0])
     end
     order
   end
