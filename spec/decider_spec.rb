@@ -18,7 +18,8 @@ describe Decider do
         test_snake = BattleSnake::Snake.new 'name', 100, 
                                             [{ 'x' => 0, 'y' => 1 }]
         board = BattleSnake::Board.new 3, 1, [], { 'test_id' => test_snake }
-        @decider = Decider.new(board, 'test_id', %i[up down left right])
+        game = BattleSnake::Game.new board, 'test_id'
+        @decider = Decider.new(game, %i[up down left right])
         expect(@decider.decide!).to eq('up')
       end
     end
@@ -26,7 +27,8 @@ describe Decider do
       it 'returns move down' do
         test_snake = BattleSnake::Snake.new 'name', 100, [{ 'x' => 0, 'y' => 0 }]
         board = BattleSnake::Board.new 3, 1, [], { 'test_id' => test_snake }
-        @decider = Decider.new(board, 'test_id', %i[up down left right])
+        game = BattleSnake::Game.new board, 'test_id'
+        @decider = Decider.new(game, %i[up down left right])
         expect(@decider.decide!).to eq('down')
       end
     end
@@ -35,7 +37,8 @@ describe Decider do
         test_snake = BattleSnake::Snake.new 'name', 100, 
                                             [{ 'x' => 1, 'y' => 0 }]
         board = BattleSnake::Board.new 1, 3, [], { 'test_id' => test_snake }
-        @decider = Decider.new(board, 'test_id', %i[up down left right])
+        game = BattleSnake::Game.new board, 'test_id'
+        @decider = Decider.new(game, %i[up down left right])
         expect(@decider.decide!).to eq('left')
       end
     end
@@ -44,7 +47,8 @@ describe Decider do
         test_snake = BattleSnake::Snake.new 'name', 100,
                                             [{ 'x' => 0, 'y' => 0 }]
         board = BattleSnake::Board.new 1, 3, [], { 'test_id' => test_snake }
-        @decider = Decider.new(board, 'test_id', %i[up down left right])
+        game = BattleSnake::Game.new board, 'test_id'
+        @decider = Decider.new(game, %i[up down left right])
         expect(@decider.decide!).to eq('right')
       end
     end
@@ -55,7 +59,8 @@ describe Decider do
                                             [{ 'x' => 0, 'y' => 1 },
                                              { 'x' => 0, 'y' => 0 }]
         board = BattleSnake::Board.new 3, 1, [], { 'test_id' => test_snake }
-        @decider = Decider.new(board, 'test_id', %i[up down left right])
+        game = BattleSnake::Game.new board, 'test_id'
+        @decider = Decider.new(game, %i[up down left right])
         expect(@decider.decide!).to eq('down')
       end
     end
@@ -66,7 +71,8 @@ describe Decider do
                                             [{ 'x' => 0, 'y' => 0 },
                                              { 'x' => 0, 'y' => 1 }]
         board = BattleSnake::Board.new 3, 2, [], { 'test_id' => test_snake }
-        @decider = Decider.new(board, 'test_id', %i[up down left right])
+        game = BattleSnake::Game.new board, 'test_id'
+        @decider = Decider.new(game, %i[up down left right])        
         expect(@decider.decide!).to eq('right')
       end
     end

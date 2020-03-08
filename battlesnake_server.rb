@@ -24,21 +24,9 @@ class BattleSnake < Sinatra::Base
 
   post '/move' do
     data = JSON.parse request.body.read
-    board = data['board']
-    my_id = data['you']['id']
+    game = gamify! data
 
-    snakes = {}
-    board['snakes'].each do |s|
-      snakes[s['id']] = Snake.new(s['name'], s['health'], s['body'])
-    end
-
-    decider = Decider.new(
-      Board.new(board['height'],
-                board['width'],
-                board['food'],
-                snakes),
-      my_id
-    )
+    decider = Decider.new game
 
     json move: decider.decide!,
          shout: 'Leeeeeeeeeeeeeroy'
@@ -47,6 +35,23 @@ class BattleSnake < Sinatra::Base
   post '/end' do
   end
 
+  def gamify!(data)
+    board = boardify! data['board']
+    Game.new board, data['you']['id']
+  end
+
+  def boardify!(board_data)
+    snakes = {}
+    board_data['snakes'].each do |s|
+      snakes[s['id']] = Snake.new(s['name'], s['health'], s['body'])
+    end
+    Board.new(board_data['height'],
+      board_data['width'],
+      board_data['food'],
+      snakes)
+    end
+
+  Game = Struct.new(:board, :player_id)
   Board = Struct.new(:height, :width, :food, :snakes)
   Snake = Struct.new(:name, :health, :body)
 end

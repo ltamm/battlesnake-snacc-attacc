@@ -4,9 +4,9 @@
 class Decider
   attr_reader :board, :player_id, :blockers
 
-  def initialize(board, player_id, direction_priority = nil)
-    @board = board
-    @player_id = player_id
+  def initialize(game, direction_priority = nil)
+    @board = game.board
+    @player_id = game.player_id
     @blockers = []
     @direction_priority = direction_priority
     board.snakes.each do |_id, snake|
